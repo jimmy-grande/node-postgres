@@ -1,5 +1,3 @@
-const nodeCrypto = require('crypto')
-
 module.exports = {
   postgresMd5PasswordHash,
   randomBytes,
@@ -10,10 +8,10 @@ module.exports = {
 }
 
 /**
- * The Web Crypto API - grabbed from the Node.js library or the global
+ * The Web Crypto API - grabbed from global first for edge runtime compatibility, otherwise fallback from the node crypto module
  * @type Crypto
  */
-const webCrypto = nodeCrypto.webcrypto || globalThis.crypto
+const webCrypto = globalThis.crypto ?? require('node:crypto').webcrypto
 /**
  * The SubtleCrypto API for low level crypto operations.
  * @type SubtleCrypto
